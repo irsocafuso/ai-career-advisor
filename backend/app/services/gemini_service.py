@@ -10,7 +10,7 @@ load_dotenv()
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 # Usaremos um modelo muito inteligente da Groq compatível com JSON mode
-MODEL_NAME = "llama3-70b-8192"
+MODEL_NAME = "llama-3.3-70b-versatile"
 MAX_RETRIES = 3
 RETRY_DELAY = 2  # segundos
 
