@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 PROMPT_VERSION = "v1"
-PROMPT_PATH = pathlib.Path(__file__).parent.parent / "prompts" / "career_analysis_v1.txt"
+PROMPT_PATH = pathlib.Path(__file__).parent.parent.parent / "prompts" / "career_analysis_v1.txt"
 
 
 def build_career_prompt(sections: dict) -> str:

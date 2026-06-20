@@ -8,13 +8,19 @@ load_dotenv()
 
 # Inicializa o Firebase Admin SDK (singleton)
 if not firebase_admin._apps:
-    service_account_path = os.getenv("FIREBASE_SERVICE_ACCOUNT_PATH", "./firebase-adminsdk.json")
+    # Resolve o caminho absoluto para o backend/ (dois níveis acima deste arquivo)
+    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    default_path = os.path.join(base_dir, "firebase-adminsdk.json")
+    service_account_path = os.getenv("FIREBASE_SERVICE_ACCOUNT_PATH", default_path)
+    
+    print(f"[FIREBASE INIT] Procurando credenciais em: {service_account_path}")
+    
     if os.path.exists(service_account_path):
+        print("[FIREBASE INIT] Arquivo encontrado! Inicializando com certificado...")
         cred = credentials.Certificate(service_account_path)
         firebase_admin.initialize_app(cred)
     else:
         print(f"\n[AVISO CRITICO] Arquivo de credenciais não encontrado: {service_account_path}")
-        print("Por favor, baixe a chave privada no Firebase Console (Configurações > Contas de serviço) e salve-a na pasta 'backend' como 'firebase-adminsdk.json'.")
         print("Tentando inicializar com credenciais padrão do ambiente...\n")
         try:
             firebase_admin.initialize_app()
