@@ -5,25 +5,25 @@ Analise cuidadosamente o perfil do usuário abaixo e retorne APENAS um JSON vál
 === PERFIL DO USUÁRIO ===
 
 INTERESSES E MATÉRIAS FAVORITAS:
-{interests}
+$interests
 
 HABILIDADES:
-{skills}
+$skills
 
 PERSONALIDADE:
-{personality}
+$personality
 
 OBJETIVOS PROFISSIONAIS:
-{goals}
+$goals
 
 HOBBIES E ATIVIDADES:
-{hobbies}
+$hobbies
 
 EXPERIÊNCIAS:
-{experiences}
+$experiences
 
 INFORMAÇÕES ADICIONAIS:
-{additionalInfo}
+$additionalInfo
 
 === INSTRUÇÃO ===
 
