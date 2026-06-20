@@ -9,10 +9,23 @@ load_dotenv()
 # Inicializa o Firebase Admin SDK (singleton)
 if not firebase_admin._apps:
     service_account_path = os.getenv("FIREBASE_SERVICE_ACCOUNT_PATH", "./firebase-adminsdk.json")
-    cred = credentials.Certificate(service_account_path)
-    firebase_admin.initialize_app(cred)
+    if os.path.exists(service_account_path):
+        cred = credentials.Certificate(service_account_path)
+        firebase_admin.initialize_app(cred)
+    else:
+        print(f"\n[AVISO CRITICO] Arquivo de credenciais não encontrado: {service_account_path}")
+        print("Por favor, baixe a chave privada no Firebase Console (Configurações > Contas de serviço) e salve-a na pasta 'backend' como 'firebase-adminsdk.json'.")
+        print("Tentando inicializar com credenciais padrão do ambiente...\n")
+        try:
+            firebase_admin.initialize_app()
+        except ValueError as e:
+            print(f"[ERRO] Não foi possível inicializar o Firebase: {e}\n")
 
-db = firestore.client()
+try:
+    db = firestore.client()
+except Exception as e:
+    print(f"[ERRO CRÍTICO] Falha ao conectar ao Firestore. Verifique suas credenciais: {e}\n")
+    db = None
 
 
 def save_career_profile(user_id: str, sections: dict) -> str:
